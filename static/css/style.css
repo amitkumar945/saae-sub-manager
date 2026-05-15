@@ -1,0 +1,21 @@
+:root { --primary: #00d4ff; }
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+    color: #e2e8f0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.navbar { background: rgba(15, 23, 42, 0.95) !important; backdrop-filter: blur(10px); }
+.card { background: rgba(30, 41, 55, 0.8); border: none; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1); }
+.table { background: rgba(30, 41, 55, 0.6); }
+.table thead { background: rgba(15, 23, 42, 0.9); }
+.form-control, .form-select {
+    background: #334155; border: none; color: #e2e8f0; border-radius: 12px;
+}
+.form-control:focus, .form-select:focus { box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3); }
+.btn-primary {
+    background: linear-gradient(90deg, #00d4ff, #0099cc);
+    border: none; border-radius: 12px; font-weight: 600;
+}
+.header-glow { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+.stats-card { transition: transform 0.3s ease; }
+.stats-card:hover { transform: translateY(-5px); }

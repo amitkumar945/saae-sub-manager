@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Subscription Manager • Haridwar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Same beautiful UI as before -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+                <i class="bi bi-cloud-check me-2" style="font-size: 28px; color: #00d4ff;"></i>
+                SaaS Sub Manager
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="badge bg-success me-3 px-3 py-2">
+                    <i class="bi bi-database me-1"></i> MongoDB Connected
+                </span>
+                <div class="text-light small">
+                    <i class="bi bi-geo-alt"></i> Haridwar, Uttarakhand
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-5 fw-bold header-glow">Subscription Management System</h1>
+                <p class="text-light opacity-75">Add • Update • View • Delete | All data from MongoDB</p>
+            </div>
+            <button onclick="openAddModal()" class="btn btn-primary btn-lg px-4 py-3 shadow-sm">
+                <i class="bi bi-plus-circle me-2"></i>Add New Subscription
+            </button>
+        </div>
+
+        <div class="row g-3 mb-4" id="statsRow"></div>
+
+        <div class="card p-4">
+            <div class="d-flex justify-content-between mb-3">
+                <h5 class="fw-semibold"><i class="bi bi-list-ul me-2"></i>All Subscriptions <span id="totalCount" class="text-primary">(0)</span></h5>
+                <input type="text" id="searchInput" onkeyup="filterTable()" class="form-control w-25" placeholder="🔎 Search by user or plan...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle" id="subscriptionsTable">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Plan Name</th>
+                            <th>Billing Cycle</th>
+                            <th>Amount (₹)</th>
+                            <th>Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="text-center text-light opacity-50 mt-4 small">
+            Built with ❤️ using Flask + MongoDB • Live Data from your Database
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal fade" id="subscriptionModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="modalTitle">Add New Subscription</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="subscriptionForm">
+                        <div class="mb-3">
+                            <label class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="userName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Plan Name</label>
+                            <input type="text" class="form-control" id="planName" required list="planSuggestions">
+                            <datalist id="planSuggestions">
+                                <option value="Basic">Basic</option>
+                                <option value="Pro">Pro</option>
+                                <option value="Premium">Premium</option>
+                                <option value="Enterprise">Enterprise</option>
+                            </datalist>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Billing Cycle</label>
+                                <select class="form-select" id="billingCycle" required>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Yearly">Yearly</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Amount (₹)</label>
+                                <input type="number" class="form-control" id="amount" required min="1">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subscription Status</label>
+                            <select class="form-select" id="status" required>
+                                <option value="Active">Active</option>
+                                <option value="Trial">Trial</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Expired">Expired</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button onclick="saveSubscription()" class="btn btn-primary px-4">
+                        <i class="bi bi-save me-2"></i>Save to MongoDB
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
